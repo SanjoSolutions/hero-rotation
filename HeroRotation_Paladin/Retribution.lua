@@ -67,7 +67,11 @@ Spell.Paladin.Retribution = {
   RecklessForceBuff                     = Spell(302932),
   ConcentratedFlameBurn                 = Spell(295368),
   SeethingRageBuff                      = Spell(297126),
-  RazorCoralDebuff                      = Spell(303568)
+  RazorCoralDebuff                      = Spell(303568),
+  Seraphim                              = Spell(152262),
+  SeraphimBuff                          = Spell(152262),
+  FinalReckoning                        = Spell(343721),
+  VanquishersHammer                     = Spell(328204),
 };
 local S = Spell.Paladin.Retribution;
 
