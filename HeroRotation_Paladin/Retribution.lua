@@ -212,8 +212,13 @@ local function Cooldowns()
     if HR.Cast(I.PocketsizedComputationDevice, nil, Settings.Commons.TrinketDisplayStyle) then return "cyclotronic_blast"; end
   end
   -- avenging_wrath,if=(!talent.inquisition.enabled|buff.inquisition.up)&holy_power>=3
-  if IsCastableNext(S.AvengingWrath) and ((not S.Inquisition:IsAvailable() or Player:BuffUp(S.InquisitionBuff)) and Player:HolyPower() >= 3) then
+  if IsCastableNext(S.AvengingWrath) and (not S.Inquisition:IsAvailable() or Player:BuffUp(S.InquisitionBuff)) and Player:HolyPower() >= 3 then
     if HR.Cast(S.AvengingWrath, Settings.Retribution.GCDasOffGCD.AvengingWrath) then return "avenging_wrath 32"; end
+  end
+  -- final_reckoning,if=holy_power>=3&cooldown.avenging_wrath.remains>gcd&time_to_hpg=0&(!talent.seraphim.enabled|buff.seraphim.up)
+  if IsCastableNext(S.FinalReckoning) and Player:HolyPower() >= 3 and S.AvengingWrath:CooldownRemains() > PlayerGCD and (not S.Seraphim:IsAvailable() or Player:BuffUp(S.SeraphimBuff)) 
+  then
+    if HR.Cast(S.FinalReckoning, Settings.Retribution.GCDasOffGCD.FinalReckoning) then return "final_reckoning"; end
   end
   -- crusade,if=holy_power>=4|holy_power>=3&time<10&talent.wake_of_ashes.enabled
   if IsCastableNext(S.Crusade) and (Player:HolyPower() >= 4 or Player:HolyPower() >= 3 and HL.CombatTime() < 10 and S.WakeofAshes:IsAvailable()) then
