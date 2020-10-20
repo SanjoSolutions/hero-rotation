@@ -1,4 +1,3 @@
-
 --- ============================ HEADER ============================
 --- ======= LOCALIZE =======
 -- Addon
@@ -35,6 +34,7 @@ HR.GUISettings.APL.Paladin = {
       -- Abilities
       AvengingWrath = true,
       Crusade = true,
+      FinalReckoning = true,
     },
     -- {Display OffGCD as OffGCD, ForceReturn}
     OffGCDasOffGCD = {
