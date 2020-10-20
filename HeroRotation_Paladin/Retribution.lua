@@ -245,6 +245,14 @@ local function Finishers()
       )
     )
   end
+  -- seraphim,if=((!talent.crusade.enabled&buff.avenging_wrath.up|cooldown.avenging_wrath.remains>25)|(buff.crusade.up|cooldown.crusade.remains>25))&(!talent.final_reckoning.enabled|cooldown.final_reckoning.remains<10)&(!talent.execution_sentence.enabled|cooldown.execution_sentence.remains<10)
+  if S.Seraphim:IsReady() and ((not S.Crusade:IsAvailable() and Player:BuffUp(S.AvengingWrathBuff) or S.AvengingWrath:CooldownRemains() > 25) or (Player:BuffUp(S.CrusadeBuff) or S.Crusade:CooldownRemains() > 25)) and (not S.FinalReckoning:IsAvailable() or S.FinalReckoning:CooldownRemains() < 10) and (not S.ExecutionSentence:IsAvailable() or S.ExecutionSentence:CooldownRemains() < 10) then
+    if HR.Cast(S.Seraphim) then return "seraphim"; end
+  end
+  -- vanquishers_hammer,if=(!talent.final_reckoning.enabled|cooldown.final_reckoning.remains>gcd*10|debuff.final_reckoning.up)&(!talent.execution_sentence.enabled|cooldown.execution_sentence.remains>gcd*10|debuff.execution_sentence.up)|spell_targets.divine_storm>=2
+  if S.VanquishersHammer:IsReady() and (not S.FinalReckoning:IsAvailable() or S.FinalReckoning:CooldownRemains() > PlayerGCD * 10 or Target:DebuffDown(S.FinalReckoning)) and (not S.ExecutionSentence:IsAvailable() or S.ExecutionSentence:CooldownRemains() > PlayerGCD * 10 or Target:DebuffDown(S.ExecutionSentence)) or EnemyCount8y >= 2 then
+    if HR.Cast(S.VanquishersHammer) then return "vanquishers_hammer"; end
+  end
   -- inquisition,if=buff.avenging_wrath.down&(buff.inquisition.down|buff.inquisition.remains<8&holy_power>=3|talent.execution_sentence.enabled&cooldown.execution_sentence.remains<10&buff.inquisition.remains<15|cooldown.avenging_wrath.remains<15&buff.inquisition.remains<20&holy_power>=3)
   if S.Inquisition:IsReady() and (Player:BuffDown(S.InquisitionBuff) and (Player:BuffDown(S.InquisitionBuff) or Player:BuffRemains(S.InquisitionBuff) < 8 and Player:HolyPower() >= 3 or S.ExecutionSentence:IsAvailable() and S.ExecutionSentence:CooldownRemains() < 10 and Player:BuffRemains(S.InquisitionBuff) < 15 or S.AvengingWrath:CooldownRemains() < 15 and Player:BuffRemains(S.InquisitionBuff) < 20 and Player:HolyPower() >= 3)) then
     if HR.Cast(S.Inquisition) then return "inquisition 46"; end
